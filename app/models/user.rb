@@ -18,13 +18,48 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation,
                   :company, :current_location, :first_name,
-                  :last_name, :phone_number, :school
+                  :last_name, :phone_number, :school, :ghost_user
 
-  has_secure_password
+  attr_accessor :password
 
   before_save { email.downcase! }
+  before_save :encrypt_password, :unless => Proc.new { |user| user.ghost_user == true }
 
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
-  validates :password, presence: true
-  validates :password_confirmation, presence: true
+  validates :email, presence: true,
+            :unless => Proc.new { |user| user.ghost_user == true }
+  validates :password, presence: true,
+            :unless => Proc.new { |user| user.ghost_user == true }
+  validates :password_confirmation, presence: true,
+            :unless => Proc.new { |user| user.ghost_user == true }
+  validates_confirmation_of :password,
+            :unless => Proc.new { |user| user.ghost_user == true }
+
+  def self.authenticate(email, password)
+    user = find_by_email(email)
+    return nil if user.nil?
+    return user if user.correct_password?(password)
+  end
+
+  def correct_password?(submitted_password)
+    password_digest == encrypt(submitted_password)
+  end
+
+  private
+
+  def encrypt_password
+    self.salt = make_salt if new_record?
+    self.password_digest = encrypt(password)
+  end
+
+  def encrypt(password)
+    secure_hash("#{salt}--#{password}")
+  end
+
+  def make_salt
+    secure_hash("#{Time.now.utc}--#{password}")
+  end
+
+  def secure_hash(string)
+    Digest::SHA2.hexdigest(string)
+  end
 end

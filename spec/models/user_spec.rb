@@ -36,20 +36,10 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:password_digest) }
-  it { should respond_to(:authenticate) }
+  it { should respond_to(:ghost_user) }
 
   describe "when email is blank" do
     before { @user.email = " " }
-    it { should_not be_valid }
-  end
-
-  describe "when email is not unique" do
-    before do
-      user_with_same_email = @user.dup
-      user_with_same_email.email.upcase!
-      user_with_same_email.save
-    end
-
     it { should_not be_valid }
   end
 
@@ -73,14 +63,14 @@ describe User do
     let(:found_user) { User.find_by_email(@user.email) }
 
     describe "valid password" do
-      it { should == found_user.authenticate(@user.password) }
+      example { found_user.should == User.authenticate("user@example.com", "secret")}
     end
 
     describe "invalid password" do
-      let(:user_with_invalid_password) { found_user.authenticate("invalid") }
+      let(:user_with_invalid_password) { User.authenticate(found_user.email, "invalid") }
 
-      it { should_not == user_with_invalid_password }
-      specify { user_with_invalid_password.should be_false }
+      example { found_user.should_not == user_with_invalid_password }
+      specify { user_with_invalid_password.should be_nil }
     end
   end
 end
