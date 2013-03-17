@@ -37,6 +37,8 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:ghost_user) }
+  it { should respond_to(:relationships) }
+  it { should respond_to(:contacts) }
 
   describe "when email is blank" do
     before { @user.email = " " }
@@ -71,6 +73,49 @@ describe User do
 
       example { found_user.should_not == user_with_invalid_password }
       specify { user_with_invalid_password.should be_nil }
+    end
+  end
+
+  describe "managing contacts who are real users" do
+    let(:contact) { User.create( email: "contact@example.com", password: "secret",
+                             password_confirmation: "secret") }
+    before do
+      @user.save
+      @user.add_contact!(contact)
+    end
+
+    describe "add contact" do
+      it { should be_has_contact(contact) }
+      its(:contacts) { should include(contact) }
+    end
+
+    describe "remove contact" do
+      before { @user.remove_contact!(contact) }
+      it { should_not be_has_contact(contact) }
+      its(:contacts) { should_not include(contact) }
+      specify { contact.should_not be_nil}
+    end
+  end
+
+  describe "managing contacts who are ghost users" do
+    let(:contact) { User.create( email: "contact@example.com", password: "secret",
+                             password_confirmation: "secret", ghost_user: true) }
+
+    before do
+      @user.save
+      @user.add_contact!(contact)
+    end
+
+    describe "add contact" do
+      it { should be_has_contact(contact) }
+      its(:contacts) { should include(contact) }
+    end
+
+    describe "remove contact (should delete contact)" do
+      before { @user.remove_contact!(contact) }
+      it { should_not be_has_contact(contact) }
+      its(:contacts) { should_not include(contact) }
+      specify { User.find_by_id(contact.id).should be_nil }
     end
   end
 end

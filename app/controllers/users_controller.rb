@@ -18,6 +18,8 @@ class UsersController < ApplicationController
   def update
   end
 
-  def destroy
+  def contacts
+    @user = User.find(params[:id])
+    @contacts = @user.contacts
   end
 end

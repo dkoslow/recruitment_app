@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
 
+  has_many :relationships, dependent: :destroy
+  has_many :contacts, through: :relationships
+
   before_save { email.downcase! }
   before_save :encrypt_password, :unless => Proc.new { |user| user.ghost_user == true }
 
@@ -33,6 +36,23 @@ class User < ActiveRecord::Base
             :unless => Proc.new { |user| user.ghost_user == true }
   validates_confirmation_of :password,
             :unless => Proc.new { |user| user.ghost_user == true }
+
+  def add_contact!(contact)
+    relationships.create!(contact_id: contact.id)
+  end
+
+  def remove_contact!(contact)
+    if contact.ghost_user == true
+      relationships.find_by_contact_id(contact.id).destroy
+      contact.destroy
+    else
+      relationships.find_by_contact_id(contact.id).destroy
+    end
+  end
+
+  def has_contact?(contact)
+    relationships.find_by_contact_id(contact.id)
+  end
 
   def self.authenticate(email, password)
     user = find_by_email(email)
