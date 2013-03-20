@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: relationships
+#
+#  id            :integer          not null, primary key
+#  user_id       :integer
+#  contact_id    :integer
+#  interest_tags :text
+#  notes         :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 require 'spec_helper'
 
 describe Relationship do 

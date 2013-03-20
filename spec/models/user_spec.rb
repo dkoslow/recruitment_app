@@ -13,6 +13,9 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  password_digest  :string(255)
+#  ghost_user       :boolean          default(FALSE)
+#  salt             :string(255)
+#  remember_token   :string(255)
 #
 
 require 'spec_helper'
@@ -38,7 +41,8 @@ describe User do
   it { should respond_to(:password_digest) }
   it { should respond_to(:ghost_user) }
   it { should respond_to(:relationships) }
-  it { should respond_to(:contacts) }
+  it { should respond_to(:contacts) } 
+  it { should respond_to(:remember_token) }
 
   describe "when email is blank" do
     before { @user.email = " " }

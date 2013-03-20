@@ -13,6 +13,9 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  password_digest  :string(255)
+#  ghost_user       :boolean          default(FALSE)
+#  salt             :string(255)
+#  remember_token   :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -26,16 +29,17 @@ class User < ActiveRecord::Base
   has_many :contacts, through: :relationships
 
   before_save { email.downcase! }
-  before_save :encrypt_password, :unless => Proc.new { |user| user.ghost_user == true }
+  before_save :encrypt_password, :unless => Proc.new { |user| user.ghost_user?}
+  before_save :create_remember_token, :unless => Proc.new { |user| user.ghost_user? }
 
   validates :email, presence: true,
-            :unless => Proc.new { |user| user.ghost_user == true }
+            :unless => Proc.new { |user| user.ghost_user? }
   validates :password, presence: true,
-            :unless => Proc.new { |user| user.ghost_user == true }
+            :unless => Proc.new { |user| user.ghost_user? }
   validates :password_confirmation, presence: true,
-            :unless => Proc.new { |user| user.ghost_user == true }
+            :unless => Proc.new { |user| user.ghost_user?}
   validates_confirmation_of :password,
-            :unless => Proc.new { |user| user.ghost_user == true }
+            :unless => Proc.new { |user| user.ghost_user? }
 
   def add_contact!(contact)
     relationships.create!(contact_id: contact.id)
@@ -54,6 +58,10 @@ class User < ActiveRecord::Base
     relationships.find_by_contact_id(contact.id)
   end
 
+  def relationship_owner?(user)
+    current_user.has_contact?(user) && user.ghost_user?
+  end
+
   def self.authenticate(email, password)
     user = find_by_email(email)
     return nil if user.nil?
@@ -66,20 +74,24 @@ class User < ActiveRecord::Base
 
   private
 
-  def encrypt_password
-    self.salt = make_salt if new_record?
-    self.password_digest = encrypt(password)
-  end
+    def create_remember_token
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
 
-  def encrypt(password)
-    secure_hash("#{salt}--#{password}")
-  end
+    def encrypt_password
+      self.salt = make_salt if new_record?
+      self.password_digest = encrypt(password)
+    end
 
-  def make_salt
-    secure_hash("#{Time.now.utc}--#{password}")
-  end
+    def encrypt(password)
+      secure_hash("#{salt}--#{password}")
+    end
 
-  def secure_hash(string)
-    Digest::SHA2.hexdigest(string)
-  end
+    def make_salt
+      secure_hash("#{Time.now.utc}--#{password}")
+    end
+
+    def secure_hash(string)
+      Digest::SHA2.hexdigest(string)
+    end
 end

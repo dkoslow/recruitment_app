@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317194232) do
+ActiveRecord::Schema.define(:version => 20130320145051) do
 
   create_table "relationships", :force => true do |t|
     t.integer  "user_id"
@@ -38,8 +38,10 @@ ActiveRecord::Schema.define(:version => 20130317194232) do
     t.string   "password_digest"
     t.boolean  "ghost_user",       :default => false
     t.string   "salt"
+    t.string   "remember_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end
