@@ -43,6 +43,7 @@ describe User do
   it { should respond_to(:relationships) }
   it { should respond_to(:contacts) } 
   it { should respond_to(:remember_token) }
+  it { should respond_to(:prompts) }
 
   describe "when email is blank" do
     before { @user.email = " " }
@@ -120,6 +121,17 @@ describe User do
       it { should_not be_has_contact(contact) }
       its(:contacts) { should_not include(contact) }
       specify { User.find_by_id(contact.id).should be_nil }
+    end
+  end
+
+  describe "prompt order" do
+    before { @user.save }
+    let(:later_prompt) { Prompt.new(title: "Second Title", content: "Apply online.", due_date: 1.day.from_now) }
+    let(:earlier_prompt) { Prompt.new(title: "First Title", content: "Finish cover letter.", due_date: 1.hour.from_now) }
+    let(:latest_prompt) { Prompt.new(title: "Third Title", content: "Check application status.", due_date: 1.week.from_now) }
+
+    it "should return prompts in order of earliest due_date" do
+      @user.prompts.should == [earlier_prompt, later_prompt, latest_prompt]
     end
   end
 end
