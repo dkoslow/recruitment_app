@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
 
   has_many :relationships, dependent: :destroy
   has_many :contacts, through: :relationships
+  has_many :prompts, dependent: :destroy
 
   before_save { email.downcase! }
   before_save :encrypt_password, :unless => Proc.new { |user| user.ghost_user?}

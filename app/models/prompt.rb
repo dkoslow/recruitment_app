@@ -14,4 +14,9 @@
 
 class Prompt < ActiveRecord::Base
   attr_accessible :company, :content, :due_date, :title
+
+  belongs_to :user
+
+  validates :user_id, presence: true
+  validates :title, presence: true
 end
