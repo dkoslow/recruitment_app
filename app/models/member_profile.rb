@@ -9,12 +9,12 @@
 #
 
 class MemberProfile < ActiveRecord::Base
-  attr_accessible :password, :password_confirmation,
+  attr_accessible :password, :password_confirmation
+  has_secure_password
 
   has_one :user, as: :profile, dependent: :destroy
 
   validates :email, presence: true,
   validates :password, presence: true,
-  validates :password_confirmation, presence: true,
-  validates_confirmation_of :password
+  validates :password_confirmation, presence: true
 end
