@@ -12,10 +12,8 @@
 #  current_location :string(255)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  password_digest  :string(255)
-#  ghost_user       :boolean          default(FALSE)
-#  salt             :string(255)
-#  remember_token   :string(255)
+#  profile_id       :integer
+#  profile_type     :string(255)
 #
 
 require 'spec_helper'

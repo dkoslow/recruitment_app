@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130331173322) do
+ActiveRecord::Schema.define(:version => 20130402050608) do
+
+  create_table "ghost_profiles", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "ghost_profiles", ["user_id"], :name => "index_ghost_profiles_on_user_id"
+
+  create_table "member_profiles", :force => true do |t|
+    t.string   "password_digest"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "prompts", :force => true do |t|
     t.integer  "user_id"
@@ -45,15 +59,14 @@ ActiveRecord::Schema.define(:version => 20130331173322) do
     t.string   "company"
     t.string   "school"
     t.string   "current_location"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.string   "password_digest"
-    t.boolean  "ghost_user",       :default => false
-    t.string   "salt"
-    t.string   "remember_token"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "profile_id"
+    t.string   "profile_type"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
-  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["profile_id"], :name => "index_users_on_profile_id"
+  add_index "users", ["profile_type"], :name => "index_users_on_profile_type"
 
 end

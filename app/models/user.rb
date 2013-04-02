@@ -12,18 +12,17 @@
 #  current_location :string(255)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  password_digest  :string(255)
-#  ghost_user       :boolean          default(FALSE)
-#  salt             :string(255)
-#  remember_token   :string(255)
+#  profile_id       :integer
+#  profile_type     :string(255)
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation,
-                  :company, :current_location, :first_name,
-                  :last_name, :phone_number, :school, :ghost_user
+  attr_accessible :email, :company, :current_location, :first_name,
+                  :last_name, :phone_number, :school
 
   attr_accessor :password
+
+  belongs_to :profile, polymorphic: true
 
   has_many :relationships, dependent: :destroy
   has_many :contacts, through: :relationships
@@ -32,15 +31,6 @@ class User < ActiveRecord::Base
   before_save { email.downcase! }
   before_save :encrypt_password, :unless => Proc.new { |user| user.ghost_user?}
   before_save :create_remember_token, :unless => Proc.new { |user| user.ghost_user? }
-
-  validates :email, presence: true,
-            :unless => Proc.new { |user| user.ghost_user? }
-  validates :password, presence: true,
-            :unless => Proc.new { |user| user.ghost_user? }
-  validates :password_confirmation, presence: true,
-            :unless => Proc.new { |user| user.ghost_user?}
-  validates_confirmation_of :password,
-            :unless => Proc.new { |user| user.ghost_user? }
 
   def add_contact!(contact)
     relationships.create!(contact_id: contact.id)
