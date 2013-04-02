@@ -8,7 +8,7 @@
 #  updated_at :datetime         not null
 #
 
-class GhostProfile < ActiveRecord::Base
+class Ghost < ActiveRecord::Base
   attr_accessible
 
   has_one :user, as: :profile, dependent: :destroy

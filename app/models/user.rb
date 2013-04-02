@@ -22,12 +22,6 @@ class User < ActiveRecord::Base
 
   belongs_to :profile, polymorphic: true
 
-  has_many :relationships, dependent: :destroy
-  has_many :contacts, through: :relationships
-  has_many :prompts, dependent: :destroy
-
-  before_save { email.downcase! }
-
   def add_contact!(contact)
     relationships.create!(contact_id: contact.id)
   end
@@ -45,7 +39,4 @@ class User < ActiveRecord::Base
     relationships.find_by_contact_id(contact.id)
   end
 
-  def relationship_owner?(user)
-    current_user.has_contact?(user) && user.ghost_user?
-  end
 end

@@ -11,21 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402050608) do
+ActiveRecord::Schema.define(:version => 20130402064609) do
 
-  create_table "ghost_profiles", :force => true do |t|
+  create_table "ghosts", :force => true do |t|
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "ghost_profiles", ["user_id"], :name => "index_ghost_profiles_on_user_id"
+  add_index "ghosts", ["user_id"], :name => "index_ghost_profiles_on_user_id"
 
-  create_table "member_profiles", :force => true do |t|
+  create_table "members", :force => true do |t|
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "remember_token"
   end
+
+  add_index "members", ["remember_token"], :name => "index_member_profiles_on_remember_token"
 
   create_table "prompts", :force => true do |t|
     t.integer  "user_id"
