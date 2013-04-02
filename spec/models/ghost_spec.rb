@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: ghost_profiles
+# Table name: ghosts
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer

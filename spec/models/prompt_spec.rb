@@ -3,7 +3,7 @@
 # Table name: prompts
 #
 #  id         :integer          not null, primary key
-#  user_id    :integer
+#  member_id  :integer
 #  company    :string(255)
 #  due_date   :datetime
 #  title      :string(255)

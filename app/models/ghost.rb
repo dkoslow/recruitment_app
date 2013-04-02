@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: ghost_profiles
+# Table name: ghosts
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
@@ -12,4 +12,5 @@ class Ghost < ActiveRecord::Base
   attr_accessible
 
   has_one :user, as: :profile, dependent: :destroy
+  belongs_to :member
 end

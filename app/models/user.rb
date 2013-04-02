@@ -21,22 +21,4 @@ class User < ActiveRecord::Base
                   :last_name, :phone_number, :school
 
   belongs_to :profile, polymorphic: true
-
-  def add_contact!(contact)
-    relationships.create!(contact_id: contact.id)
-  end
-
-  def remove_contact!(contact)
-    if contact.ghost_user == true
-      relationships.find_by_contact_id(contact.id).destroy
-      contact.destroy
-    else
-      relationships.find_by_contact_id(contact.id).destroy
-    end
-  end
-
-  def has_contact?(contact)
-    relationships.find_by_contact_id(contact.id)
-  end
-
 end

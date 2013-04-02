@@ -3,7 +3,7 @@
 # Table name: prompts
 #
 #  id         :integer          not null, primary key
-#  user_id    :integer
+#  member_id  :integer
 #  company    :string(255)
 #  due_date   :datetime
 #  title      :string(255)
@@ -15,8 +15,7 @@
 class Prompt < ActiveRecord::Base
   attr_accessible :company, :content, :due_date, :title
 
-  belongs_to :user
+  belongs_to :member
 
-  validates :user_id, presence: true
-  validates :title, presence: true
+  validates_presence_of :member_id, :title
 end

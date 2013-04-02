@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402064609) do
+ActiveRecord::Schema.define(:version => 20130402072232) do
 
   create_table "ghosts", :force => true do |t|
     t.integer  "user_id"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20130402064609) do
   add_index "members", ["remember_token"], :name => "index_member_profiles_on_remember_token"
 
   create_table "prompts", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "member_id"
     t.string   "company"
     t.datetime "due_date"
     t.string   "title"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20130402064609) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "prompts", ["user_id"], :name => "index_prompts_on_user_id"
+  add_index "prompts", ["member_id"], :name => "index_prompts_on_user_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "user_id"
