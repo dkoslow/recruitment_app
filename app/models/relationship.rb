@@ -3,7 +3,7 @@
 # Table name: relationships
 #
 #  id            :integer          not null, primary key
-#  user_id       :integer
+#  member_id     :integer
 #  contact_id    :integer
 #  interest_tags :text
 #  notes         :text
@@ -14,10 +14,10 @@
 class Relationship < ActiveRecord::Base
   attr_accessible :contact_id, :interest_tags, :notes
 
-  belongs_to :user
-  belongs_to :contact, class_name: "User"
+  belongs_to :member
+  belongs_to :contact, class_name: "Member"
 
-  validates :user_id, presence: true
+  validates :member_id, presence: true
   validates :contact_id, presence: true
 
 end

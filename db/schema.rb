@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402072232) do
+ActiveRecord::Schema.define(:version => 20130403174125) do
 
   create_table "ghosts", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "member_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "ghosts", ["user_id"], :name => "index_ghost_profiles_on_user_id"
+  add_index "ghosts", ["member_id"], :name => "index_ghosts_on_member_id"
 
   create_table "members", :force => true do |t|
     t.string   "password_digest"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20130402072232) do
     t.string   "remember_token"
   end
 
-  add_index "members", ["remember_token"], :name => "index_member_profiles_on_remember_token"
+  add_index "members", ["remember_token"], :name => "index_members_on_remember_token"
 
   create_table "prompts", :force => true do |t|
     t.integer  "member_id"
@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(:version => 20130402072232) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "prompts", ["member_id"], :name => "index_prompts_on_user_id"
+  add_index "prompts", ["member_id"], :name => "index_prompts_on_member_id"
 
   create_table "relationships", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "member_id"
     t.integer  "contact_id"
     t.text     "interest_tags"
     t.text     "notes"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(:version => 20130402072232) do
   end
 
   add_index "relationships", ["contact_id"], :name => "index_relationships_on_contact_id"
-  add_index "relationships", ["user_id"], :name => "index_relationships_on_user_id"
+  add_index "relationships", ["member_id"], :name => "index_relationships_on_member_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(:version => 20130402072232) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
-  add_index "users", ["profile_id"], :name => "index_users_on_profile_id"
-  add_index "users", ["profile_type"], :name => "index_users_on_profile_type"
+  add_index "users", ["profile_id", "profile_type"], :name => "index_users_on_profile_id_and_profile_type"
 
 end

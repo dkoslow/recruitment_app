@@ -3,7 +3,7 @@
 # Table name: relationships
 #
 #  id            :integer          not null, primary key
-#  user_id       :integer
+#  member_id     :integer
 #  contact_id    :integer
 #  interest_tags :text
 #  notes         :text

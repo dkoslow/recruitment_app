@@ -3,13 +3,24 @@
 # Table name: ghosts
 #
 #  id         :integer          not null, primary key
-#  user_id    :integer
+#  member_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 require 'spec_helper'
 
-describe GhostProfile do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Ghost do
+  
+  before { @ghost = Ghost.new }
+  before { @user = @ghost.user.build_association(email: "user@example.com") }
+
+  subject { @ghost }
+
+  it { should be_valid}
+
+  it { should respond_to(:user) }
+
+  specify { @ghost.user.should == @user }
+  specify { @user.profile.should == @ghost }
 end
