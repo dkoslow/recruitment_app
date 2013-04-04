@@ -21,4 +21,8 @@ class User < ActiveRecord::Base
                   :last_name, :phone_number, :school
 
   belongs_to :profile, polymorphic: true
+
+  class << self
+    attr_accessor :new_user
+  end
 end
