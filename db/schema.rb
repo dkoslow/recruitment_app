@@ -11,12 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403174125) do
+ActiveRecord::Schema.define(:version => 20130404192558) do
 
   create_table "ghosts", :force => true do |t|
     t.integer  "member_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "email"
   end
 
   add_index "ghosts", ["member_id"], :name => "index_ghosts_on_member_id"
@@ -26,8 +27,10 @@ ActiveRecord::Schema.define(:version => 20130403174125) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "remember_token"
+    t.string   "email"
   end
 
+  add_index "members", ["email"], :name => "index_members_on_email"
   add_index "members", ["remember_token"], :name => "index_members_on_remember_token"
 
   create_table "prompts", :force => true do |t|
@@ -58,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20130403174125) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone_number"
-    t.string   "email"
     t.string   "company"
     t.string   "school"
     t.string   "current_location"
@@ -68,7 +70,6 @@ ActiveRecord::Schema.define(:version => 20130403174125) do
     t.string   "profile_type"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["profile_id", "profile_type"], :name => "index_users_on_profile_id_and_profile_type"
 
 end

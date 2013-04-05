@@ -6,17 +6,18 @@
 #  member_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  email      :string(255)
 #
 
 require 'spec_helper'
 
 describe Ghost do
   
-  let(:member) { Member.create(email: "user@example.com",
+  let(:member) { Member.create(email: "member@example.com",
                                password: "secret",
                                password_confirmation: "secret") }
   before do
-    @ghost = member.ghosts.build(email: member.email,
+    @ghost = member.ghosts.build(email: "ghost@example.com",
                                  company: "Company Co.",
                                  current_location: "Durham",
                                  first_name: "Emily",
@@ -34,8 +35,12 @@ describe Ghost do
 
   describe "user associations" do
     before do
+      @user = @ghost.build_user(company: @ghost.company,
+                                current_location: @ghost.current_location,
+                                first_name: @ghost.first_name, last_name: @ghost.last_name,
+                                phone_number: @ghost.phone_number, school: @ghost.school)
       @ghost.save
-      @user = @ghost.user
+      @user.save
     end
 
     describe "it should have the right user" do
@@ -45,11 +50,6 @@ describe Ghost do
     describe "user should have the right profile" do
       specify { @user.profile.should == @ghost }
     end
-
-    describe "user should have the right email" do
-      specify { @user.email.should == "user@example.com" }
-    end
-
   end
 
   describe "member associations" do

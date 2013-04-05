@@ -7,11 +7,17 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  remember_token  :string(255)
+#  email           :string(255)
 #
 
 class Member < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation
-  attr_accessor :email
+
+  attr_accessible :email, :password, :password_confirmation,
+                  :company, :current_location, :first_name,
+                  :last_name, :phone_number, :school
+
+  attr_accessor :company, :current_location, :first_name,
+                :last_name, :phone_number, :school
 
   has_secure_password
 
@@ -23,6 +29,9 @@ class Member < ActiveRecord::Base
 
   validates_presence_of :email, :password, :password_confirmation
 
+  validates :email, uniqueness: { case_sensitive: false }
+
+  before_save { email.downcase! }
   before_save :create_remember_token
 
   def add_contact!(contact)
@@ -35,6 +44,10 @@ class Member < ActiveRecord::Base
 
   def has_contact?(contact)
     relationships.find_by_contact_id(contact.id)
+  end
+
+  def has_ghost?(ghost)
+    ghosts.find_by_id(ghost.id)
   end
 
   private

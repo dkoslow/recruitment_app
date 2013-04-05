@@ -6,7 +6,6 @@
 #  first_name       :string(255)
 #  last_name        :string(255)
 #  phone_number     :string(255)
-#  email            :string(255)
 #  company          :string(255)
 #  school           :string(255)
 #  current_location :string(255)
@@ -21,8 +20,4 @@ class User < ActiveRecord::Base
                   :last_name, :phone_number, :school
 
   belongs_to :profile, polymorphic: true
-
-  class << self
-    attr_accessor :new_user
-  end
 end
