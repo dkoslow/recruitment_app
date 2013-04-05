@@ -18,7 +18,6 @@ describe Member do
     @member = Member.new(email: "member@example.com",
                          password: "secret",
                          password_confirmation: "secret",
-                         email: "member@example.com",
                          company: "Manufacturing Co.",
                          current_location: "Atlanta",
                          first_name: "Walt",
