@@ -20,4 +20,6 @@ class User < ActiveRecord::Base
                   :last_name, :phone_number, :school
 
   belongs_to :profile, polymorphic: true
+
+  validates_presence_of :profile_id, :profile_type
 end

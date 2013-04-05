@@ -19,116 +19,55 @@ require 'spec_helper'
 
 describe User do
 
-  let(:ghost) { Ghost.new }
-  before { ghost.save }
+  let(:member) { Member.create(email: "mem@example.com",
+                               password: "secret",
+                               password_confirmation: "secret",
+                               email: "member@example.com",
+                               company: "Warehouse Co.",
+                               current_location: "New York",
+                               first_name: "Michelle",
+                               last_name: "Kwan",
+                               phone_number: "400-400-4000",
+                               school: "Stanford University") }
 
-  before { @user = User.new( email: "user@example.com") }
-  before { @user.save }
-
-
-  @user.profile.create(:ghost)
+  before { @user = member.build_user(company: member.company,
+                                     current_location: member.current_location,
+                                     first_name: member.first_name, last_name: member.last_name,
+                                     phone_number: member.phone_number, school: member.school) }
 
   subject { @user }
 
   it { should be_valid }
+
+  it { should respond_to(:first_name) }
+  it { should respond_to(:last_name) }
+  it { should respond_to(:phone_number) }
+  it { should respond_to(:company) }
+  it { should respond_to(:school) }
+  it { should respond_to(:current_location) }
+  it { should respond_to(:profile) }
+  it { should respond_to(:profile_id) }
+  it { should respond_to(:profile_type) }
+
+  describe "when profile_id is not present" do
+    before { @user.profile_id = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when profile_type is not present" do
+    before { @user.profile_type = nil }
+    it { should_not be_valid }
+  end
+
+  it "should not allow access to prompt_id" do
+    expect do
+      User.new(profile_id: member.id)
+    end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+  end
+
+  it "should not allow access to prompt_type" do
+    expect do
+      User.new(profile_type: member.class)
+    end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+  end
 end
-
-
-
-#   it { should be_valid }
-
-#   it { should respond_to(:first_name) }
-#   it { should respond_to(:last_name) }
-#   it { should respond_to(:phone_number) }
-#   it { should respond_to(:email) }
-#   it { should respond_to(:company) }
-#   it { should respond_to(:school) }
-#   it { should respond_to(:current_location) }
-#   it { should respond_to(:password) }
-#   it { should respond_to(:password_confirmation) }
-#   it { should respond_to(:password_digest) }
-#   it { should respond_to(:ghost_user) }
-#   it { should respond_to(:relationships) }
-#   it { should respond_to(:contacts) } 
-#   it { should respond_to(:remember_token) }
-#   it { should respond_to(:prompts) }
-
-#   describe "when email is blank" do
-#     before { @user.email = " " }
-#     it { should_not be_valid }
-#   end
-
-#   describe "when password is blank" do
-#     before { @user.password = " "}
-#     it { should_not be_valid }
-#   end
-
-#   describe "when password and password_confirmation do not match" do
-#     before { @user.password_confirmation = "not_secret" }
-#     it { should_not be_valid }
-#   end
-
-#   describe "when password confirmation is nil" do
-#     before { @user.password_confirmation = nil }
-#     it { should_not be_valid }
-#   end
-
-#   describe "return user based on successful authentication" do
-#     before { @user.save }
-#     let(:found_user) { User.find_by_email(@user.email) }
-
-#     describe "valid password" do
-#       example { found_user.should == User.authenticate("user@example.com", "secret")}
-#     end
-
-#     describe "invalid password" do
-#       let(:user_with_invalid_password) { User.authenticate(found_user.email, "invalid") }
-
-#       example { found_user.should_not == user_with_invalid_password }
-#       specify { user_with_invalid_password.should be_nil }
-#     end
-#   end
-
-#   describe "managing contacts who are real users" do
-#     let(:contact) { User.create( email: "contact@example.com", password: "secret",
-#                              password_confirmation: "secret") }
-#     before do
-#       @user.save
-#       @user.add_contact!(contact)
-#     end
-
-#     describe "add contact" do
-#       it { should be_has_contact(contact) }
-#       its(:contacts) { should include(contact) }
-#     end
-
-#     describe "remove contact" do
-#       before { @user.remove_contact!(contact) }
-#       it { should_not be_has_contact(contact) }
-#       its(:contacts) { should_not include(contact) }
-#       specify { contact.should_not be_nil}
-#     end
-#   end
-
-#   describe "managing contacts who are ghost users" do
-#     let(:contact) { User.create( email: "contact@example.com", password: "secret",
-#                              password_confirmation: "secret", ghost_user: true) }
-
-#     before do
-#       @user.save
-#       @user.add_contact!(contact)
-#     end
-
-#     describe "add contact" do
-#       it { should be_has_contact(contact) }
-#       its(:contacts) { should include(contact) }
-#     end
-
-#     describe "remove contact (should delete contact)" do
-#       before { @user.remove_contact!(contact) }
-#       it { should_not be_has_contact(contact) }
-#       its(:contacts) { should_not include(contact) }
-#       specify { User.find_by_id(contact.id).should be_nil }
-#     end
-#   end
-# end
