@@ -16,7 +16,7 @@ require 'spec_helper'
 
 describe Prompt do
   
-  let (:user) { User.create( email: "contact@example.com", password: "secret",
+  let (:member) { Member.create( email: "member@example.com", password: "secret",
                              password_confirmation: "secret") }
   before do
     @prompt = Prompt.new(title: "Prompt Title", content: "Submit resume.")
@@ -24,7 +24,7 @@ describe Prompt do
 
   subject { @prompt }
 
-  it { should respond_to(:user_id) }
+  it { should respond_to(:member_id) }
   it { should respond_to(:company) }
   it { should respond_to(:content) }
   it { should respond_to(:due_date) }
@@ -36,13 +36,13 @@ describe Prompt do
   end
 
   describe "when user id is not present" do
-    before { @prompt.user_id = nil }
+    before { @prompt.member_id = nil }
     it { should_not be_valid }
   end
 
   it "should not allow access to user_id" do
     expect do
-      Prompt.new(user_id: user.id)
+      Prompt.new(member_id: member.id)
     end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
   end
 end
