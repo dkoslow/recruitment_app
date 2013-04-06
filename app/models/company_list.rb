@@ -6,8 +6,11 @@
 #  name       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  popularity :integer
 #
 
 class CompanyList < ActiveRecord::Base
-  attr_accessible :name
+  extend AutocompleteHelper
+  
+  attr_accessible :name, :popularity
 end

@@ -11,12 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130406002142) do
+ActiveRecord::Schema.define(:version => 20130406183642) do
 
   create_table "company_lists", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "popularity"
   end
 
   add_index "company_lists", ["name"], :name => "index_company_lists_on_name"
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20130406002142) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "popularity"
   end
 
   add_index "school_lists", ["name"], :name => "index_school_lists_on_name"
