@@ -1,1 +1,27 @@
-new.html.erb
+<div class="row">
+  <%= form_for(@member) do |f| %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+
+    <%= f.label :company %>
+    <%= f.text_field :company %>
+
+    <%= f.label :current_location %>
+    <%= f.text_field :current_location %>
+
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number %>
+
+    <%= f.label :school %>
+    <%= f.text_field :school %>
+
+    <%= f.submit "Create contact",
+        class: "btn btn-large btn-primary" %>
+  <% end %>
+</div>
