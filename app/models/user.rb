@@ -22,4 +22,8 @@ class User < ActiveRecord::Base
   belongs_to :profile, polymorphic: true
 
   validates_presence_of :profile_id, :profile_type
+
+  def name
+    first_name + " " + last_name
+  end
 end
