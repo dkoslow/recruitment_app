@@ -1,0 +1,8 @@
+<li>
+  <h4><%= link_to member.user.name, member %></h4>
+  <% if !member.user.company.blank? %>
+    <%= member.user.company %>
+  <% elsif !member.user.school.blank? %>
+    <%= member.user.school %>
+  <% end %>
+</li>
