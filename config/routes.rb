@@ -1,6 +1,14 @@
 RecruitmentApp::Application.routes.draw do
-  resources :users
+
+  root to: 'pages#home'
+
+  resources :members
+  resources :ghosts
   resources :sessions, only: [:new, :create, :destroy]
+  resources :relationships, only: [:create, :destroy]
+  resources :prompts, only: [:create, :destroy]
+
+  match "/auth/google_oauth2/callback" => "sessions#google_auth" 
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
