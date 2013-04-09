@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     member = Member.find_by_email(params[:session][:email].downcase)
-    if member && Member.authenticate(user.email, params[:session][:password])
+    if member && member.authenticate(params[:session][:password])
       sign_in member
       redirect_to member
     else
@@ -14,6 +14,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    sign_out
+    redirect_to root_url
   end
 
   def google_auth

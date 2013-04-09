@@ -1,5 +1,7 @@
 class GhostsController < ApplicationController
 
+  before_filter :signed_in_member
+
   def create
     @ghost = current_member.ghosts.build(params[:ghost])
     @user = @ghost.build_user(company: company, current_location:current_location,

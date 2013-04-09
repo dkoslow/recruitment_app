@@ -9,6 +9,12 @@ module SessionsHelper
     !current_member.nil?
   end
 
+  def signed_in_member
+    unless signed_in?
+      redirect_to signin_url, notice: "Please sign in."
+    end
+  end
+
   def current_member
     @current_member ||= Member.find_by_remember_token(cookies[:remember_token])
   end

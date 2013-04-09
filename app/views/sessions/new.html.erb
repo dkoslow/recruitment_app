@@ -1,1 +1,27 @@
-new.html.erb
+<% if signed_in? %>
+
+  <h2>You are currently signed in. </h2>
+
+  <div id="signout">
+    <%= link_to "Sign out", signout_path, method: :delete, class: "btn btn-large btn-primary" %>
+  </h2>
+
+<% else %>
+
+  <% provide(:title, "Sign in") %>
+  <h2>Sign in</h2>
+
+    <div id="signin">
+      <%= form_for(:session, url: sessions_path) do |f| %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %></br>
+
+      <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+      <% end %>
+    </div>
+
+<% end %>
