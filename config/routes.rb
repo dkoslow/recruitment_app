@@ -7,6 +7,8 @@ RecruitmentApp::Application.routes.draw do
   resources :prompts
   resources :sessions, only: [:new, :create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :company_lists, only: [:index]
+  resources :school_lists, only: [:index]
 
   match '/auth/google_oauth2/callback', to: 'sessions#google_auth'
   match 'signup', to: 'members#new'
