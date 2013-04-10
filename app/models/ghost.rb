@@ -2,11 +2,13 @@
 #
 # Table name: ghosts
 #
-#  id         :integer          not null, primary key
-#  member_id  :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  email      :string(255)
+#  id            :integer          not null, primary key
+#  member_id     :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  email         :string(255)
+#  interest_tags :text
+#  notes         :text
 #
 
 class Ghost < ActiveRecord::Base

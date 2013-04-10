@@ -2,11 +2,13 @@
 #
 # Table name: ghosts
 #
-#  id         :integer          not null, primary key
-#  member_id  :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  email      :string(255)
+#  id            :integer          not null, primary key
+#  member_id     :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  email         :string(255)
+#  interest_tags :text
+#  notes         :text
 #
 
 require 'spec_helper'
@@ -32,6 +34,8 @@ describe Ghost do
 
   it { should respond_to(:user) }
   it { should respond_to(:member_id)}
+  it { should respond_to(:interest_tags)}
+  it { should respond_to(:notes)}
 
   describe "user associations" do
     before do

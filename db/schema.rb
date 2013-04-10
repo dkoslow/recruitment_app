@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130406183642) do
+ActiveRecord::Schema.define(:version => 20130410060813) do
 
   create_table "company_lists", :force => true do |t|
     t.string   "name"
@@ -24,9 +24,11 @@ ActiveRecord::Schema.define(:version => 20130406183642) do
 
   create_table "ghosts", :force => true do |t|
     t.integer  "member_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "email"
+    t.text     "interest_tags"
+    t.text     "notes"
   end
 
   add_index "ghosts", ["member_id"], :name => "index_ghosts_on_member_id"

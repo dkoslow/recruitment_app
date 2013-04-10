@@ -1,10 +1,10 @@
-<h1> Member show page </h1>
+<h1> Ghost show page </h1>
 <div class="row">
-  <h2><%= @ghost.user.first_name %> <%= @ghost.user.last_name %> </h2>
+  <h2><%= @ghost.user.name %> </h2>
   <h3><%= @ghost.user.company %></h3>
   <h3><%= @ghost.user.current_location %></h3>
   <h3><%= @ghost.user.phone_number %></h3>
   <h3><%= @ghost.user.school %></h3>
-  <h3> Notes </h3>
-  <h3> Interest tags </h3>
+  <h3><%= @ghost.interest_tags %></h3>
+  <h3><%= @ghost.notes %></h3>
 </div>

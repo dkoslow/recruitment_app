@@ -21,6 +21,12 @@
     <%= f.label :school %>
     <%= f.text_field :school %>
 
+    <%= f.label :interest_tags %>
+    <%= f.text_area :interest_tags %>
+
+    <%= f.label :notes %>
+    <%= f.text_area :notes %>
+
     <%= f.submit "Create contact",
         class: "btn btn-large btn-primary" %>
   <% end %>
