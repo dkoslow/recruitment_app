@@ -1,1 +1,28 @@
-edit.html.erb
+<h1> Edit contact information </h1>
+<div class="row">
+  <%= form_for(@ghost) do |f| %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+
+    <%= f.label :company %>
+    <%= f.text_field :company %>
+
+    <%= f.label :current_location %>
+    <%= f.text_field :current_location %>
+
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number %>
+
+    <%= f.label :school %>
+    <%= f.text_field :school %>
+
+    <%= f.submit "Update contact",
+        class: "btn btn-large btn-primary" %>
+  <% end %>
+</div>

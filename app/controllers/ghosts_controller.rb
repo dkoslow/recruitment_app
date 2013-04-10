@@ -7,7 +7,7 @@ class GhostsController < ApplicationController
   end
 
   def show
-    @ghosts = current_member.ghosts.find_by_id(params[:id])
+    @ghost = current_member.ghosts.find_by_id(params[:id])
   end
 
   def new
