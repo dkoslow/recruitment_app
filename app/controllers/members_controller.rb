@@ -50,7 +50,7 @@ class MembersController < ApplicationController
   def destroy
     @member.destroy
     sign_out
-    flass[:success] = "Profile destroyed!"
+    flass[:success] = "Profile destroyed."
     redirect_to root_url
   end
 

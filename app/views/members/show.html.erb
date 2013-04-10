@@ -1,10 +1,10 @@
 <h1> Member show page </h1>
 <div class="row">
-  <h2><%= @member.user.first_name %> <%= @member.user.last_name %> </h2>
+  <h2><%= @member.user.name %> </h2>
   <h3><%= @member.user.company %></h3>
   <h3><%= @member.user.current_location %></h3>
   <h3><%= @member.user.phone_number %></h3>
   <h3><%= @member.user.school %></h3>
-  <h3> Notes if not current_user </h3>
-  <h3> Interest tags if not current_user </h3>
+  <h3> Notes if not current_member </h3>
+  <h3> Interest tags if not current_member </h3>
 </div>
