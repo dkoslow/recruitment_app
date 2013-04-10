@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+  before_filter :signed_in_member, only: [:google_auth]
+
   def new
   end
 

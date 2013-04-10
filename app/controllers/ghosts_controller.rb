@@ -3,9 +3,11 @@ class GhostsController < ApplicationController
   before_filter :signed_in_member
 
   def index
+    @ghosts = current_member.ghosts
   end
 
   def show
+    @ghosts = current_member.ghosts.find_by_id(params[:id])
   end
 
   def new
