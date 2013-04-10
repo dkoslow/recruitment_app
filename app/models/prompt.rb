@@ -13,7 +13,7 @@
 #
 
 class Prompt < ActiveRecord::Base
-  attr_accessible :email, :company, :content, :due_date, :title
+  attr_accessible :company, :content, :due_date, :title
 
   belongs_to :member
 

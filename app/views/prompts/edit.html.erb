@@ -1,1 +1,19 @@
-edit.html.erb
+<h1> Edit prompt </h1>
+<div class="row">
+  <%= form_for(@prompt) do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+
+    <%= f.label :company %>
+    <%= f.text_field :company %>
+
+    <%= f.label :due_date %>
+    <%= f.text_field :due_date %>
+
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+
+    <%= f.submit "Update prompt",
+        class: "btn btn-large btn-primary" %>
+  <% end %>
+</div>
