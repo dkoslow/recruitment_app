@@ -2,6 +2,10 @@ class RelationshipsController < ApplicationController
 
   before_filter :signed_in_member
 
+  def index
+    @contacts = current_member.contacts
+  end
+
   def create
     @contact = Member.find_by_id(params[:id])
     current_member.add_contact!(@contact)

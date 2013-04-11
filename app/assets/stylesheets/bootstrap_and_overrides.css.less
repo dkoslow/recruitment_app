@@ -31,7 +31,28 @@
 // Example:
 // @linkColor: #ff0000;
 
-// Form autocompletion
+
+/* Navbar */
+.navbar-inner .brand {
+  padding-left: 100px;
+}
+
+/* Footer */
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #DDD;
+  ul {
+    float: left;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 60px;
+    }
+  }
+}
+
+/* Form autocompletion */
 ul.ui-autocomplete {
   position: absolute;
   list-style: none;
@@ -50,4 +71,13 @@ ul.ui-autocomplete {
       padding: 3px;
     }
   }
+}
+
+/* Debug */
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
 }

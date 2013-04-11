@@ -5,15 +5,21 @@ RecruitmentApp::Application.routes.draw do
   resources :members
   resources :ghosts
   resources :prompts
+  resources :relationships
   resources :sessions, only: [:new, :create, :destroy]
-  resources :relationships, only: [:create, :destroy]
   resources :company_lists, only: [:index]
   resources :school_lists, only: [:index]
 
   match '/auth/google_oauth2/callback', to: 'sessions#google_auth'
-  match 'signup', to: 'members#new'
+  match '/signup', to: 'members#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
+
+  match '/account', to: 'pages#account'
+  match '/contact', to: 'pages#contact'
+  match '/about',   to: 'pages#about'
+  match '/mobile',  to: 'pages#mobile'
+  match '/help',    to: 'pages#help'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

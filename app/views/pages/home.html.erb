@@ -3,13 +3,8 @@
   <% if signed_in? %>
     <h2>You are signed in.</h2>
   <% else %>
-    <p>
     <%= link_to "Sign up now!", signup_path,
                                 class: "btn btn-large btn-primary" %>
-    </p>
-    <p>
-    <%= link_to "Sign in", signin_path %>
-    </p>
   <% end %>
 </div>
 
