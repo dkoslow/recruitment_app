@@ -1,4 +1,4 @@
-<div class="row">
+<div class="span8">
   <%= form_for(@ghost) do |f| %>
     <%= f.label :email %>
     <%= f.text_field :email %>
@@ -27,7 +27,9 @@
     <%= f.label :notes %>
     <%= f.text_area :notes %>
 
-    <%= f.submit "Create contact",
-        class: "btn btn-large btn-primary" %>
-  <% end %>
+    <div class="submit button">
+        <%= f.submit "Create contact",
+            class: "btn btn-large btn-primary" %>
+    </div>
+<% end %>
 </div>
