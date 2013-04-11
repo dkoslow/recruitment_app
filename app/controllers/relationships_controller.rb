@@ -7,7 +7,7 @@ class RelationshipsController < ApplicationController
   end
 
   def create
-    @contact = Member.find_by_id(params[:id])
+    @contact = Member.find_by_id(params[:relationship][:contact_id])
     current_member.add_contact!(@contact)
     flash[:success] = "Contact added!"
     redirect_to @contact
@@ -28,9 +28,9 @@ class RelationshipsController < ApplicationController
   end
 
   def destroy
-    @contact = Member.find_by_id(params[:id])
-    current_member.remove_contact!(@contact)
+    contact = Relationship.find_by_id(params[:id]).contact
+    current_member.remove_contact!(contact)
     flash[:success] = "Contact removed."
-    redirect_to current_member
+    redirect_to contact
   end
 end

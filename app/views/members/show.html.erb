@@ -7,4 +7,11 @@
   <h3><%= @member.user.school %></h3>
   <h3> Notes if not current_member </h3>
   <h3> Interest tags if not current_member </h3>
+  <% unless current_member?(@member) %>
+    <% if current_member.has_contact?(@member) %>
+      <%= render 'remove_contact' %>
+    <% else %>
+      <%= render 'add_contact' %>
+    <% end %>
+  <% end %>
 </div>
