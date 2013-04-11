@@ -1,5 +1,15 @@
-<h1>Index of members</h1>
-
-<ul class="members">
-  <%= render @members %>
-</ul>
+<div class="row">  
+  <div class="span6">
+    <h1>Index of contacts</h1>
+    <%= link_to "Create contact", new_ghost_path, class: "btn btn-large btn-primary" %>
+    <ul class="contacts">
+      <%= render @contacts %>
+    </ul>
+  </div>
+  <div class="span6">
+    <h1>Index of members</h1>
+    <ul class="members">
+      <%= render @members %>
+    </ul>
+  </div>
+</div>

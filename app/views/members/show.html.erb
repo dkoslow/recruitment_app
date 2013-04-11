@@ -1,14 +1,25 @@
 <h1> Member show page </h1>
 <div class="row">
-  <h2><%= @member.user.name %> </h2>
-  <h3><%= @member.user.company %></h3>
-  <h3><%= @member.user.current_location %></h3>
-  <h3><%= @member.user.phone_number %></h3>
-  <h3><%= @member.user.school %></h3>
-  <h3> Notes if not current_member </h3>
-  <h3> Interest tags if not current_member </h3>
+  <h3><%= @member.user.name %> </h3>
+  <h4>Company: <%= @member.user.company %></h4>
+  <h4>Location: <%= @member.user.current_location %></h4>
+  <h4>Phone number: <%= @member.user.phone_number %></h4>
+  <h4>School: <%= @member.user.school %></h4>
+  <% if current_member.has_contact?(@member) %>
+  <p>
+    <h4>Interest Tags:</h4>
+    <%= current_member.relationships.find_by_contact_id(@member.id).interest_tags %>
+  </p>
+  <p>
+    <h4>Notes:</h4>
+    <%= current_member.relationships.find_by_contact_id(@member.id).notes %>
+  </p>
+  <% end %>
   <% unless current_member?(@member) %>
     <% if current_member.has_contact?(@member) %>
+      <div class="submit_button">
+        <%= link_to "Edit contact", edit_relationship_path(current_member.relationships.find_by_contact_id(@member.id)), class: "btn btn-large btn-primary" %>
+      </div>
       <%= render 'remove_contact' %>
     <% else %>
       <%= render 'add_contact' %>

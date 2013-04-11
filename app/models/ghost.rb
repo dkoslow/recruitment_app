@@ -12,8 +12,9 @@
 #
 
 class Ghost < ActiveRecord::Base
-  attr_accessible :email, :company, :current_location, :first_name,
-                  :last_name, :phone_number, :school
+  attr_accessible :email, :company, :current_location,
+                  :first_name, :last_name, :phone_number,
+                  :school, :interest_tags, :notes
 
   attr_accessor :company, :current_location, :first_name,
                 :last_name, :phone_number, :school

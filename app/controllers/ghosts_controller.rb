@@ -22,7 +22,7 @@ class GhostsController < ApplicationController
     if @ghost.save
       @user.save
       flash[:success] = "Contact created!"
-      redirect_to current_member
+      redirect_to @ghost
     else
       render 'new'
     end

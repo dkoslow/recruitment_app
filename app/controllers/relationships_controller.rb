@@ -14,14 +14,15 @@ class RelationshipsController < ApplicationController
   end
 
   def edit
-    @contact = current_member.contacts.find_by_id(params[:id])
+    @relationship = Relationship.find_by_id(params[:id])
+    @contact = @relationship.contact
   end
 
   def update
-    @contact = current_member.contacts.find_by_id(params[:id])
-    if @contact.update_attributes(params[:contact])
+    @relationship = Relationship.find_by_id(params[:id])
+    if @relationship.update_attributes(params[:relationship])
       flash[:success] = "Contact updated!"
-      redirect_to current_member
+      redirect_to @relationship.contact
     else
       render 'new'
     end

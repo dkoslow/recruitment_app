@@ -1,7 +1,18 @@
 <h1> Prompt show page </h1>
 <div class="row">
-  <h2><%= prompt.title %></h2>
-  <h3><%= prompt.company %><h3>
-  <h3><%= prompt.due_date %><h3>
-  <h3><%= prompt.content %><h3>
+  <h2><%= @prompt.title %></h2>
+  <h3><%= @prompt.company %></h3>
+  <h3><%= @prompt.due_date %></h3>
+  <h3><%= @prompt.content %></h3>
+</div>
+
+<div class="submit_button">
+  <%= link_to "Edit prompt", edit_prompt_path(@prompt),
+      class: "btn btn-large btn-primary" %>
+</div>
+<div class="submit_button">
+  <%= form_for(current_member.prompts.find_by_id(@prompt.id),
+      html: { method: :delete }) do |f| %>
+    <%= f.submit "Delete prompt", class: "btn btn-large" %>
+  <% end %>
 </div>

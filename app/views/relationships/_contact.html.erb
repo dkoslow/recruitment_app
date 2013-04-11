@@ -1,8 +1,0 @@
-<li>
-  <h4><%= link_to contact.user.name, contact %></h4>
-  <% if !contact.user.company.blank? %>
-    <%= contact.user.company %>
-  <% elsif !contact.user.school.blank? %>
-    <%= contact.user.school %>
-  <% end %>
-</li>

@@ -1,10 +1,27 @@
 <h1> Ghost show page </h1>
 <div class="row">
-  <h2><%= @ghost.user.name %> </h2>
-  <h3><%= @ghost.user.company %></h3>
-  <h3><%= @ghost.user.current_location %></h3>
-  <h3><%= @ghost.user.phone_number %></h3>
-  <h3><%= @ghost.user.school %></h3>
-  <h3><%= @ghost.interest_tags %></h3>
-  <h3><%= @ghost.notes %></h3>
+  <h3><%= @ghost.user.name %> </h3>
+  <h4>Company: <%= @ghost.user.company %></h4>
+  <h4>Location: <%= @ghost.user.current_location %></h4>
+  <h4>Phone number: <%= @ghost.user.phone_number %></h4>
+  <h4>School: <%= @ghost.user.school %></h4>
+  <p>
+    <h4>Interest tags:</h4>
+    <%= @ghost.interest_tags %>
+  </p>
+  <p>
+    <h4>Notes:</h4>
+    <%= @ghost.notes %>
+  </p>
+</div>
+
+<div class="submit_button">
+  <%= link_to "Edit ghost", edit_ghost_path(@ghost),
+      class: "btn btn-large btn-primary" %>
+</div>
+<div class="submit_button">
+  <%= form_for(current_member.ghosts.find_by_id(@ghost.id),
+      html: { method: :delete }) do |f| %>
+    <%= f.submit "Delete ghost", class: "btn btn-large" %>
+  <% end %>
 </div>

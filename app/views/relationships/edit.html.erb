@@ -1,20 +1,20 @@
 <h1> Update contact </h1>
 <div class="row">
-  <h2><%= @contact.user.name %> </h2>
-  <h3><%= @contact.user.company %></h3>
-  <h3><%= @contact.user.current_location %></h3>
-  <h3><%= @contact.user.phone_number %></h3>
-  <h3><%= @contact.user.school %></h3>
+  <h3><%= @contact.user.name %> </h3>
+  <h4>Company: <%= @contact.user.company %></h4>
+  <h4>Location: <%= @contact.user.current_location %></h4>
+  <h4>Phone number: <%= @contact.user.phone_number %></h4>
+  <h4>School: <%= @contact.user.school %></h4>
 </div>
 <div class="row">
-  <%= form_for(@contact) do |f| %>
+  <%= form_for(@relationship) do |f| %>
     <%= f.label :interest_tags %>
     <%= f.text_area :interest_tags %>
 
     <%= f.label :notes %>
     <%= f.text_area :notes %>
 
-    <div class="submit button">
+    <div class="submit_button">
       <%= f.submit "Update contact",
           class: "btn btn-large btn-primary" %>
     </div>

@@ -1,6 +1,7 @@
 <li>
   <h4><%= link_to prompt.title, prompt %></h4>
-  <%= prompt.company %>
-  <%= prompt.due_date %>
-  <%= prompt.content %> 
+  <ul>
+    <li>Company: <%= prompt.company %></li>
+    <li>Due date: <%= prompt.due_date || "N/A" %></li>
+  </ul>
 </li>

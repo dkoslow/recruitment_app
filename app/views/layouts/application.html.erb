@@ -18,10 +18,8 @@
       <a class="brand" href="/">TapConnect</a>
       <div class="nav-collapse">
         <ul class="nav">
-          <li><%= link_to "Contacts", relationships_path %></li>
+          <li><%= link_to "Contacts", members_path %></li>
           <li><%= link_to "Prompts", prompts_path %></li>
-          <li><%= link_to "Members", members_path %></li>
-          <li><%= link_to "Ghosts", ghosts_path %></li>
           <li><%= link_to "Account", account_path %></li>
           <% if signed_in? %>
             <li><%= link_to "Sign out", signout_path %></li>

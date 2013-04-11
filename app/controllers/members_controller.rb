@@ -5,6 +5,7 @@ class MembersController < ApplicationController
 
   def index
     @members = Member.all
+    @contacts = current_member.contacts + current_member.ghosts
   end
 
   def show
