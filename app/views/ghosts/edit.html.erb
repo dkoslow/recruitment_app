@@ -2,31 +2,33 @@
 <div class="row">
   <%= form_for(@ghost) do |f| %>
     <%= f.label :email %>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, :value => @ghost.email %>
 
     <%= f.label :company %>
-    <%= f.text_field :company %>
+    <%= f.text_field :company, :value => @ghost.user.company %>
 
     <%= f.label :current_location %>
-    <%= f.text_field :current_location %>
+    <%= f.text_field :current_location,
+                     :value => @ghost.user.current_location  %>
 
     <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
+    <%= f.text_field :first_name, :value => @ghost.user.first_name  %>
 
     <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
+    <%= f.text_field :last_name, :value => @ghost.user.last_name  %>
 
     <%= f.label :phone_number %>
-    <%= f.text_field :phone_number %>
+    <%= f.text_field :phone_number,
+                     :value => @ghost.user.phone_number  %>
 
     <%= f.label :school %>
-    <%= f.text_field :school %>
+    <%= f.text_field :school, :value => @ghost.user.school  %>
 
     <%= f.label :interest_tags %>
-    <%= f.text_area :interest_tags %>
+    <%= f.text_area :interest_tags, :value => @ghost.interest_tags %>
 
     <%= f.label :notes %>
-    <%= f.text_area :notes %>
+    <%= f.text_area :notes, :value => @ghost.notes  %>
 
     <div class="submit_button">
         <%= f.submit "Update contact",

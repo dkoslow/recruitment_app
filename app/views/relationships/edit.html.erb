@@ -9,10 +9,11 @@
 <div class="row">
   <%= form_for(@relationship) do |f| %>
     <%= f.label :interest_tags %>
-    <%= f.text_area :interest_tags %>
+    <%= f.text_area :interest_tags,
+                    :value => @relationship.interest_tags %>
 
     <%= f.label :notes %>
-    <%= f.text_area :notes %>
+    <%= f.text_area :notes, :value => @relationship.notes %>
 
     <div class="submit_button">
       <%= f.submit "Update contact",

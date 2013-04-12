@@ -2,7 +2,7 @@
 <div class="row">
   <%= form_for(@member) do |f| %>
     <%= f.label :email %>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, :value => @member.email %>
 
     <%= f.label :password %>
     <%= f.password_field :password %>
@@ -11,26 +11,32 @@
     <%= f.password_field :password_confirmation %>
 
     <%= f.label :company %>
-    <%= f.text_field :company %>
+    <%= f.text_field :company, :value => @member.user.company %>
 
     <%= f.label :current_location %>
-    <%= f.text_field :current_location %>
+    <%= f.text_field :current_location,
+                     :value => @member.user.current_location %>
 
     <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
+    <%= f.text_field :first_name, :value => @member.user.first_name %>
 
     <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
+    <%= f.text_field :last_name, :value => @member.user.last_name %>
 
     <%= f.label :phone_number %>
-    <%= f.text_field :phone_number %>
+    <%= f.text_field :phone_number,
+                     :value => @member.user.phone_number %>
 
     <%= f.label :school %>
-    <%= f.text_field :school %>
+    <%= f.text_field :school, :value => @member.user.school %>
 
     <div class="submit_button">
         <%= f.submit "Update my profile",
             class: "btn btn-large btn-primary" %>
     </div>
+  <% end %>
+  <% if current_member?(@member) %>
+    <%= link_to "Delete profile", @member, method: :delete,
+                data: { confirm: "You sure?" }, class: "btn btn-large"%>
   <% end %>
 </div>
