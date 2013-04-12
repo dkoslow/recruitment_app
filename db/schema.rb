@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130410060813) do
+ActiveRecord::Schema.define(:version => 20130412031603) do
 
   create_table "company_lists", :force => true do |t|
     t.string   "name"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20130410060813) do
     t.text     "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "location"
   end
 
   add_index "prompts", ["member_id"], :name => "index_prompts_on_member_id"

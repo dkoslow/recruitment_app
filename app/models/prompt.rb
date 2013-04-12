@@ -10,10 +10,11 @@
 #  content    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  location   :string(255)
 #
 
 class Prompt < ActiveRecord::Base
-  attr_accessible :company, :content, :due_date, :title
+  attr_accessible :company, :content, :due_date, :title, :location
 
   belongs_to :member
 

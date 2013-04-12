@@ -3,7 +3,7 @@ class PromptsController < ApplicationController
   before_filter :signed_in_member
 
   def index
-    @prompts = current_member.prompts
+    @prompts = current_member.prompts.order(:due_date)
   end
 
   def show
@@ -17,8 +17,12 @@ class PromptsController < ApplicationController
   def create
     @prompt = current_member.prompts.build(params[:prompt])
     if @prompt.save
-      flash[:success] = "Prompt created!"
-      redirect_to prompts_path
+      if params[:sync_with_google]
+        redirect_to "/auth/google_oauth2"
+      else
+        flash[:success] = "Prompt created!"
+        redirect_to prompts_path
+      end
     else
       render 'new'
     end
@@ -45,21 +49,21 @@ class PromptsController < ApplicationController
   end
 
   def google_auth
-    @prompt = current_member.prompts.find_by_id(params[:id])
+    @prompt = current_member.prompts.last
     @auth = request.env["omniauth.auth"]
     @token = @auth["credentials"]["token"]
     client = Google::APIClient.new
     client.authorization.access_token = @token
     service = client.discovered_api('calendar', 'v3')
     event = {
-      'summary' => 'Appointment',
-      'description' => 'Just a test.',
-      'location' => 'Somewhere',
+      'summary' => @prompt.title,
+      'description' => @prompt.content,
+      'location' => @prompt.location,
       'start' => {
-        'dateTime' => '2013-04-16T10:00:00.000-07:00'
+        'dateTime' => @prompt.due_date,
       },
       'end' => {
-        'dateTime' => '2013-04-16T10:30:00.000-07:00'
+        'dateTime' => @prompt.due_date,
       }
     }
     @result = client.execute(
@@ -67,6 +71,7 @@ class PromptsController < ApplicationController
       :parameters => {'calendarId' => @auth["info"]["email"]},
       :body => JSON.dump(event),
       :headers => {'Content-Type' => 'application/json'})
-    print @result.data.id
+    flash[:success] = "Prompt created!"
+    redirect_to prompts_path
   end
 end

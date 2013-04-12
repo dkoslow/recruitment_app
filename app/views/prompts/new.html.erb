@@ -8,11 +8,17 @@
     <%= f.text_field :company %>
 
     <%= f.label :due_date %>
-    <%= f.text_field :due_date %>
+    <%= f.datetime_select :due_date%>
+
+    <%= f.label :location %>
+    <%= f.text_field :location %>
 
     <%= f.label :content %>
     <%= f.text_area :content %>
 
+    <div id="sync_with_gcal">
+        <%= check_box_tag :sync_with_google, 1 %> Sync with google calendar?
+    </div>
     <div class="submit_button">
         <%= f.submit "Create prompt",
             class: "btn btn-large btn-primary" %>
