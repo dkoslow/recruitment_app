@@ -19,16 +19,4 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_url
   end
-
-  def google_auth
-    @auth = request.env["omniauth.auth"]
-    @token = @auth["credentials"]["token"]
-    client = Google::APIClient.new
-    client.authorization.access_token = @token
-    service = client.discovered_api('calendar', 'v3')
-    @result = client.execute(
-      :api_method => service.calendar_list.list,
-      :parameters => {},
-      :headers => {'Content-Type' => 'application/json'})
-  end
 end
