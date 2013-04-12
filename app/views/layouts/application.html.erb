@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 </head>
 <body>
   <div class="navbar navbar-fixed-top">
@@ -18,10 +19,11 @@
       <a class="brand" href="/">TapConnect</a>
       <div class="nav-collapse">
         <ul class="nav">
-          <li><%= link_to "Contacts", members_path %></li>
-          <li><%= link_to "Prompts", prompts_path %></li>
-          <li><%= link_to "Account", account_path %></li>
           <% if signed_in? %>
+            <li><%= link_to "Contacts", members_path %></li>
+            <li><%= link_to "Prompts", prompts_path %></li>
+            <li><%= link_to "Account",
+              edit_member_path(current_member) %></li>
             <li><%= link_to "Sign out", signout_path %></li>
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>

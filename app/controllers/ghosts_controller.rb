@@ -39,7 +39,7 @@ class GhostsController < ApplicationController
                                      first_name: @ghost.first_name, last_name: @ghost.last_name,
                                      phone_number: @ghost.phone_number, school: @ghost.school)
       flash[:success] = "Contact updated!"
-      redirect_to current_member
+      redirect_to @ghost
     else
       render 'edit'
     end

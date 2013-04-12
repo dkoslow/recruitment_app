@@ -8,7 +8,7 @@
   <% if current_member.has_contact?(@member) %>
   <p>
     <h4>Interest Tags:</h4>
-    <%= current_member.relationships.find_by_contact_id(@member.id).interest_tags %>
+    <%= render 'interest_tags'%>
   </p>
   <p>
     <h4>Notes:</h4>

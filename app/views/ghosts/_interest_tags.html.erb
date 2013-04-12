@@ -1,0 +1,5 @@
+<% @ghost.interest_tags.split(',').each do |tag| %>
+<li>
+  <h4><%= link_to tag, google_news_path(term: tag.strip), class: "btn" %></h4>
+</li>
+<% end %>

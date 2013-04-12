@@ -47,11 +47,10 @@ class MembersController < ApplicationController
     end
   end
 
-
   def destroy
     @member.destroy
     sign_out
-    flass[:success] = "Profile destroyed."
+    flash[:success] = "Profile destroyed."
     redirect_to root_url
   end
 
