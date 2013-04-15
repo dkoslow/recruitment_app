@@ -15,10 +15,6 @@ RecruitmentApp::Application.routes.draw do
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
 
-  match '/contact',     to: 'pages#contact'
-  match '/about',       to: 'pages#about'
-  match '/mobile',      to: 'pages#mobile'
-  match '/help',        to: 'pages#help'
   match '/google_news', to: 'pages#google_news'
 
   # The priority is based upon order of creation:
