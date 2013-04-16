@@ -22,6 +22,7 @@ class MembersController < ApplicationController
                                first_name: @member.first_name, last_name: @member.last_name,
                                phone_number: @member.phone_number, school: @member.school)
     if @member.save
+      MemberMailer.signup_confirmation(@member).deliver
       @user.save
       sign_in @member
       flash[:success] = "Welcome to TapConnect!"
