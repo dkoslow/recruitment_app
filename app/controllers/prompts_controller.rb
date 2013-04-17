@@ -3,7 +3,8 @@ class PromptsController < ApplicationController
   before_filter :signed_in_member
 
   def index
-    @prompts = current_member.prompts.text_search(params[:query], "title", "content")
+    prompts = current_member.prompts.text_search(params[:query], "title", "content")
+    @prompts = prompts.sort_by { |prompt| [prompt.due_date ? 0 : 1, prompt.due_date] }
   end
 
   def show
