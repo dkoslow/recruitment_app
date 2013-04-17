@@ -12,6 +12,8 @@
 #
 
 class Ghost < ActiveRecord::Base
+  extend ProfileAssociationsHelper
+
   attr_accessible :email, :company, :current_location,
                   :first_name, :last_name, :phone_number,
                   :school, :interest_tags, :notes

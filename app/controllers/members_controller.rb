@@ -4,8 +4,13 @@ class MembersController < ApplicationController
   before_filter :correct_member, only: [:edit, :update, :destroy]
 
   def index
-    @members = Member.all
-    @contacts = current_member.contacts + current_member.ghosts
+    users = User.text_search(params[:query], "first_name", "last_name")
+
+    @members = Member.select_associated_profiles(users)
+
+    ghosts  = Ghost.select_associated_profiles(users)
+    contacts = @members.select { |member| current_member.has_contact?(member) }
+    @contacts = contacts + ghosts
   end
 
   def show

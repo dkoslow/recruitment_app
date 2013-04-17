@@ -14,6 +14,8 @@
 #
 
 class Prompt < ActiveRecord::Base
+  extend SearchHelper
+
   attr_accessible :company, :content, :due_date, :title, :location
 
   belongs_to :member

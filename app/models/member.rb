@@ -11,6 +11,7 @@
 #
 
 class Member < ActiveRecord::Base
+  extend ProfileAssociationsHelper
 
   attr_accessible :email, :password, :password_confirmation,
                   :company, :current_location, :first_name,
