@@ -8,6 +8,7 @@
 #  updated_at      :datetime         not null
 #  remember_token  :string(255)
 #  email           :string(255)
+#  admin           :boolean          default(FALSE)
 #
 
 require 'spec_helper'
